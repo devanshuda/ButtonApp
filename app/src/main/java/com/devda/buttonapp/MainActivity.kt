@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.FlowColumn
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -20,22 +20,22 @@ class MainActivity : ComponentActivity() {
         setContent {
             val context = LocalContext.current
 
-            // FlowRow places items next to each other and wraps them like text in a paragraph
-            FlowRow(
+            // FlowColumn places items top-to-bottom, wrapping to a new column when out of vertical space
+            FlowColumn(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp), // Space between buttons horizontally
-                verticalArrangement = Arrangement.spacedBy(8.dp) // Space between wrapped lines
+                horizontalArrangement = Arrangement.spacedBy(8.dp), // Space between columns
+                verticalArrangement = Arrangement.spacedBy(8.dp) // Space between buttons vertically
             ) {
-                // IMPORTANT: FlowRow is not a "Lazy" layout, so we use a standard Kotlin 'repeat'
-                // block instead of the 'items()' function we used in the previous grids.
-                repeat(15) { index ->
+
+                // Increased to 20 items so it hits the bottom of the screen and wraps
+                repeat(20) { index ->
                     val buttonNumber = index + 1
 
-                    // We make some buttons intentionally wider to show off the wrapping effect
-                    val buttonText = if (index % 3 == 0) {
-                        "Super Long Button $buttonNumber"
+                    // We make some buttons intentionally taller to show off the vertical wrapping
+                    val buttonText = if (index % 4 == 0) {
+                        "Tall\nBtn\n$buttonNumber"
                     } else {
                         "Btn $buttonNumber"
                     }
