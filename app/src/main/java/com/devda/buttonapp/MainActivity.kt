@@ -6,9 +6,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
@@ -21,22 +22,27 @@ class MainActivity : ComponentActivity() {
         setContent {
             val context = LocalContext.current
 
-            // Now using a Horizontal Grid!
-            LazyHorizontalGrid(
-                rows = GridCells.Fixed(3), // We define rows instead of columns here
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalArrangement = Arrangement.Center
+            // Now using a Staggered Grid!
+            LazyVerticalStaggeredGrid(
+                columns = StaggeredGridCells.Fixed(3), // Locks it to 3 columns
+                modifier = Modifier.fillMaxSize().padding(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp), // Space between columns
+                verticalItemSpacing = 8.dp // Space between rows
             ) {
-                // If you want to see the side-scrolling in action, try changing this 9 to 30!
-                items(30) { index ->
+                // Increased to 15 items to show off the staggered effect
+                items(15) { index ->
                     val buttonNumber = index + 1
+
+                    // This creates alternating heights for the buttons (120dp and 70dp)
+                    val buttonHeight = if (index % 2 == 0) 120.dp else 70.dp
 
                     Button(
                         onClick = {
                             Toast.makeText(context, "I am button $buttonNumber", Toast.LENGTH_SHORT).show()
                         },
-                        modifier = Modifier.padding(4.dp)
+                        modifier = Modifier
+                            .height(buttonHeight) // We apply the alternating height here
+                            .fillMaxSize()
                     ) {
                         Text(text = "Btn $buttonNumber")
                     }
