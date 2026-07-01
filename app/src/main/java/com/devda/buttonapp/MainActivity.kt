@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
@@ -21,14 +21,15 @@ class MainActivity : ComponentActivity() {
         setContent {
             val context = LocalContext.current
 
-            // Now using an Adaptive Grid!
-            LazyVerticalGrid(
-                columns = GridCells.Adaptive(minSize = 150.dp), // Automatically fits columns based on screen width
+            // Now using a Horizontal Grid!
+            LazyHorizontalGrid(
+                rows = GridCells.Fixed(3), // We define rows instead of columns here
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalArrangement = Arrangement.Center
             ) {
-                items(9) { index ->
+                // If you want to see the side-scrolling in action, try changing this 9 to 30!
+                items(30) { index ->
                     val buttonNumber = index + 1
 
                     Button(
